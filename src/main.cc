@@ -28,7 +28,7 @@ int main(int argc, char** argv)
   SDL_Init(SDL_INIT_VIDEO);
   SDL_Window* window = SDL_CreateWindow("hello!", 800, 600, SDL_WINDOW_RESIZABLE);
   SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-  SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
+  SDL_Renderer* renderer = SDL_CreateRenderer(window, "vulkan");
 
   bool is_running = true;
   SDL_Event event {};
