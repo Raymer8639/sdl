@@ -5,6 +5,7 @@
 #include <SDL3/SDL_main.h>
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_video.h>
+#include <array>
 
 int main(int argc, char** argv)
 {
@@ -18,21 +19,25 @@ int main(int argc, char** argv)
   SDL_Event event {};
   while(is_running)
   {
-    SDL_WaitEvent(&event);
-    switch (event.type) {
-      case SDL_EVENT_QUIT:
-      {
-        is_running = false;
-        break;
-      }
-      case SDL_EVENT_WINDOW_EXPOSED:
-      {
-        SDL_SetRenderDrawColor(renderer, 16, 0, 16, 255);
-        SDL_RenderClear(renderer);
-        SDL_RenderPresent(renderer);
-        break;
+    while (SDL_PollEvent(&event)) {
+      switch (event.type) {
+        case SDL_EVENT_QUIT:
+        {
+          is_running = false;
+          break;
+        }
       }
     }
+    std::array<SDL_Vertex, 3> sjx;
+    sjx = {
+      SDL_Vertex { { 150, 100 }, { 1.0f, 0.0f, 0.0f, 1.0f } },
+      SDL_Vertex { { 000, 300 }, { 0.0f, 1.0f, 0.0f, 1.0f } },
+      SDL_Vertex { { 300, 300 }, { 0.0f, 0.0f, 1.0f, 1.0f } }
+    };
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 0);
+    SDL_RenderClear(renderer);
+    SDL_RenderGeometry(renderer, 0, sjx.data(), sjx.size(), 0, 0);
+    SDL_RenderPresent(renderer);
   }
 
 
